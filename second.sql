@@ -1,18 +1,18 @@
-CREATE TABLE cats
-    (
-        cat_id INT NOT NULL AUTO_INCREMENT,
-        name VARCHAR(100),
-        age INT,
-        PRIMARY KEY(cat_id)
-    );
+-- CREATE TABLE cats
+--     (
+--         cat_id INT NOT NULL AUTO_INCREMENT,
+--         name VARCHAR(100),
+--         age INT,
+--         -PRIMARY KEY(cat_id)
+--     );
  
-mysql-ctl cli
+--mysql-ctl cli
  
 use cat_app;
  
-source first_file.sql
+--source first_file.sql
  
-DESC cats;
+--DESC cats;
  
  
  
@@ -24,24 +24,24 @@ VALUES('Connie', 10);
  
 SELECT * FROM cats;
  
-source testing/insert.sql
+--source testing/insert.sql
 
 
 DROP DATABASE IF EXISTS book_shop;
 CREATE DATABASE book_shop;
 USE book_shop; 
  
-CREATE TABLE books 
-	(
-		book_id INT NOT NULL AUTO_INCREMENT,
-		title VARCHAR(100),
-		author_fname VARCHAR(100),
-		author_lname VARCHAR(100),
-		released_year INT,
-		stock_quantity INT,
-		pages INT,
-		PRIMARY KEY(book_id)
-	);
+--CREATE TABLE books 
+	---(
+		-- book_id INT NOT NULL AUTO_INCREMENT,
+		-- title VARCHAR(100),
+		-- author_fname VARCHAR(100),
+		-- author_lname VARCHAR(100),
+		-- released_year INT,
+		-- stock_quantity INT,
+		-- pages INT,
+		-- PRIMARY KEY(book_id)
+	--);
  
 INSERT INTO books (title, author_fname, author_lname, released_year, stock_quantity, pages)
 VALUES
@@ -61,9 +61,9 @@ VALUES
 ('Cannery Row', 'John', 'Steinbeck', 1945, 95, 181),
 ('Oblivion: Stories', 'David', 'Foster Wallace', 2004, 172, 329);
 
-source book_data.sql 
+--source book_data.sql 
 
-DESC books;
+--DESC books;
 SELECT * FROM books; 
 
 
@@ -71,17 +71,17 @@ SELECT * FROM books;
 
 SELECT author_fname, author_lname FROM books;
  
-CONCAT(x,y,z) // from slides
+-- CONCAT(x,y,z) // from slides
  
-CONCAT(column, anotherColumn) // from slides
+-- CONCAT(column, anotherColumn) // from slides
  
-CONCAT(author_fname, author_lname)
+-- CONCAT(author_fname, author_lname)
  
-CONCAT(column, 'text', anotherColumn, 'more text')
+-- CONCAT(column, 'text', anotherColumn, 'more text')
  
-CONCAT(author_fname, ' ', author_lname)
+-- CONCAT(author_fname, ' ', author_lname)
  
-CONCAT(author_fname, author_lname); // invalid syntax
+-- CONCAT(author_fname, author_lname); // invalid syntax
  
 SELECT CONCAT('Hello', 'World');
  
@@ -97,16 +97,16 @@ SELECT
 FROM books;
  
 SELECT author_fname AS first, author_lname AS last, 
-  CONCAT(author_fname, ' ', author_lname) AS full
-FROM books;
+  --CONCAT(author_fname, ' ', author_lname) AS full
+--FROM books;
  
-SELECT author_fname AS first, author_lname AS last, 
-  CONCAT(author_fname, ', ', author_lname) AS full
-FROM books;
+--SELECT author_fname AS first, author_lname AS last, 
+  --CONCAT(author_fname, ', ', author_lname) AS full
+--FROM books;
  
-SELECT CONCAT(title, '-', author_fname, '-', author_lname) FROM books;
+--SELECT CONCAT(title, '-', author_fname, '-', author_lname) FROM books;
  
-SELECT 
+--SELECT 
     CONCAT_WS(' - ', title, author_fname, author_lname) 
 FROM books;
 
@@ -226,7 +226,6 @@ SELECT REVERSE(UPPER('Why does my cat look at me with such hatred?'));
 SELECT UPPER(REVERSE('Why does my cat look at me with such hatred?')); 
 
 
-I-like-cats 
 
 
 SELECT REPLACE(CONCAT('I', ' ', 'like', ' ', 'cats'), ' ', '-'); 
@@ -264,3 +263,106 @@ SELECT
    CONCAT(author_lname, ',', author_fname) AS author,
    CONCAT(stock_quantity, ' in stock') AS quantity
 FROM books;
+
+
+INSERT INTO books
+    (title, author_fname, author_lname, released_year, stock_quantity, pages)
+    VALUES ('10% Happier', 'Dan', 'Harris', 2014, 29, 256), 
+           ('fake_book', 'Freida', 'Harris', 2001, 287, 428),
+           ('Lincoln In The Bardo', 'George', 'Saunders', 2017, 1000, 367);
+ 
+ 
+SELECT title FROM books;
+
+--DISTINCT--
+
+SELECT author_lname FROM books;
+ 
+SELECT DISTINCT author_lname FROM books;
+ 
+SELECT author_fname, author_lname FROM books;
+ 
+SELECT DISTINCT CONCAT(author_fname,' ', author_lname) FROM books;
+ 
+SELECT DISTINCT author_fname, author_lname FROM books;
+
+-- order by --
+
+SELECT author_lname FROM books;
+ 
+SELECT author_lname FROM books ORDER BY author_lname;
+ 
+SELECT title FROM books;
+ 
+SELECT title FROM books ORDER BY title;
+SELECT author_lname FROM books ORDER BY author_lname DESC;
+ 
+SELECT released_year FROM books;
+ 
+SELECT released_year FROM books ORDER BY released_year;
+ 
+SELECT released_year FROM books ORDER BY released_year DESC;
+ 
+SELECT released_year FROM books ORDER BY released_year ASC;
+ 
+SELECT title, released_year, pages FROM books ORDER BY released_year;
+ 
+SELECT title, pages FROM books ORDER BY released_year;
+ 
+SELECT title, author_fname, author_lname 
+FROM books ORDER BY 2;
+ 
+SELECT title, author_fname, author_lname 
+FROM books ORDER BY 3;
+ 
+SELECT title, author_fname, author_lname 
+FROM books ORDER BY 1;
+ 
+SELECT title, author_fname, author_lname 
+FROM books ORDER BY 1 DESC;
+ 
+SELECT author_lname, title
+FROM books ORDER BY 2;
+ 
+SELECT author_fname, author_lname FROM books 
+ORDER BY author_lname, author_fname;
+
+
+-- limit --
+
+SELECT title FROM books LIMIT 3;
+ 
+SELECT title FROM books LIMIT 1;
+ 
+SELECT title FROM books LIMIT 10;
+ 
+SELECT * FROM books LIMIT 1;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 5;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 1;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 14;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 0,5;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 0,3;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 1,3;
+ 
+SELECT title, released_year FROM books 
+ORDER BY released_year DESC LIMIT 10,1;
+ 
+SELECT * FROM tbl LIMIT 95,18446744073709551615;
+ 
+SELECT title FROM books LIMIT 5;
+ 
+SELECT title FROM books LIMIT 5, 123219476457;
+ 
+SELECT title FROM books LIMIT 5, 50;
